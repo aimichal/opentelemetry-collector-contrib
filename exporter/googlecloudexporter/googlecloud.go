@@ -125,6 +125,7 @@ func newGoogleCloudTracesExporter(cfg *Config, set component.ExporterCreateSetti
 }
 
 func newGoogleCloudMetricsExporter(cfg *Config, set component.ExporterCreateSettings) (component.MetricsExporter, error) {
+	fmt.Printf("Creating a new GoogleCloudMetricsExporter\n")
 	setVersionInUserAgent(cfg, set.BuildInfo.Version)
 
 	// TODO:  For each ProjectID, create a different exporter
@@ -210,6 +211,7 @@ func (me *metricsExporter) pushMetrics(ctx context.Context, m pdata.Metrics) err
 				metric.Resource = md.Resource
 			}
 			metrics = append(metrics, metric)
+			fmt.Printf("Appending metric to publish: %s\n", metric.String())
 		}
 	}
 	points := numPoints(metrics)
